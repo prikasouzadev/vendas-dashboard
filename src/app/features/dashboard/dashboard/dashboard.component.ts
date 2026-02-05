@@ -1,5 +1,5 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { BsModalService } from 'ngx-bootstrap/modal';
 import { VendaAgregada } from 'src/app/core/models/venda.model';
 import { VendasService } from 'src/app/core/services/vendas.service';
 import { UploadComponent } from '../../upload/upload/upload.component';
@@ -11,20 +11,17 @@ import { DetalheComponent } from '../../detalhe/detalhe.component';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-
   @ViewChild('uploadCmp') uploadCmp?: UploadComponent;
-
 
   agregadas: VendaAgregada[] = [];
   agregadasFiltradas: VendaAgregada[] = [];
   totalGeral = 0;
   maisVendido: VendaAgregada | null = null;
-  filtroProduto = '';
-  chartData: any;
-  parseErrors: string[] = [];  // quando CSV tem linhas ruins
 
-  modalRef?: BsModalRef;
-  produtoSelecionado?: VendaAgregada;
+  filtroProduto = '';
+  chartData: any = null;
+
+  parseErrors: string[] = []; //linhas inválidas
 
   constructor(
     private vendasService: VendasService,
@@ -32,52 +29,62 @@ export class DashboardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-  const lastCsv = localStorage.getItem('vendas_csv');
-  if (lastCsv) {
-    this.processarCSV(lastCsv);
+    this.resetDashboard();
   }
-}
 
+  public resetDashboard(): void {
+    this.parseErrors = [];
+    this.agregadas = [];
+    this.agregadasFiltradas = [];
+    this.totalGeral = 0;
+    this.maisVendido = null;
+    this.chartData = null;
+    this.filtroProduto = '';
+  }
 
   onCsvLoaded(csv: string): void {
+    this.resetDashboard();
     this.processarCSV(csv);
   }
 
   processarCSV(csv: string): void {
-  try {
-    const { vendas, errors } = this.vendasService.parseCSV(csv);
-    this.parseErrors = errors;
+    try {
+      const { vendas, errors } = this.vendasService.parseCSV(csv);
 
-    // CASO 1: existem erros
-    if (errors.length > 0) {
-      this.uploadCmp?.showWarningForInvalidData();
+      this.parseErrors = errors ?? [];
+
+      // Se exister erros, força mensagem amarela
+      if (this.parseErrors.length > 0) {
+        this.uploadCmp?.showWarningForInvalidData();
+      }
+
+      // Se não existe nenhuma linha válida, não renderiza nada
+      if (!vendas || vendas.length === 0) {
+        this.agregadas = [];
+        this.agregadasFiltradas = [];
+        this.totalGeral = 0;
+        this.maisVendido = null;
+        this.chartData = null;
+        return;
+      }
+
+      // Dados válidos => renderiza dashboard
+      const agregadas = this.vendasService.agregar(vendas);
+
+      this.agregadas = agregadas;
+      this.agregadasFiltradas = [...agregadas];
+
+      this.totalGeral = this.vendasService.totalGeral(agregadas);
+      this.maisVendido = this.vendasService.produtoMaisVendido(agregadas);
+
+      this.aplicarFiltro(); // já atualiza o chart também
+    } catch (e: any) {
+
+      // Erro
+      this.resetDashboard();
+      this.parseErrors = [e?.message || 'Erro ao processar CSV.'];
     }
-
-    // CASO 2: não existe nenhuma linha válida
-    if (vendas.length === 0) {
-      this.agregadas = [];
-      this.agregadasFiltradas = [];
-      this.totalGeral = 0;
-      this.maisVendido = null;
-      this.chartData = null;
-      return; // ⛔ não tenta renderizar dashboard
-    }
-
-    // CASO 3: existem dados válidos
-    const agregadas = this.vendasService.agregar(vendas);
-    this.agregadas = agregadas;
-    this.agregadasFiltradas = agregadas;
-
-    this.totalGeral = this.vendasService.totalGeral(agregadas);
-    this.maisVendido = this.vendasService.produtoMaisVendido(agregadas);
-
-    this.atualizarChart(agregadas);
-    this.aplicarFiltro();
-
-  } catch (e: any) {
-    this.parseErrors = [e?.message || 'Erro ao processar CSV.'];
   }
-}
 
   aplicarFiltro(): void {
     const term = (this.filtroProduto || '').trim().toLowerCase();
@@ -89,7 +96,7 @@ export class DashboardComponent implements OnInit {
     }
 
     this.agregadasFiltradas = this.agregadas.filter(a =>
-      a.produto.toLowerCase().includes(term)
+      (a.produto || '').toLowerCase().includes(term)
     );
 
     this.atualizarChart(this.agregadasFiltradas);
@@ -100,16 +107,15 @@ export class DashboardComponent implements OnInit {
     this.aplicarFiltro();
   }
 
-abrirDetalhe(item: VendaAgregada): void {
-  this.modalService.show(DetalheComponent, {
-    class: 'modal-dialog-centered modal-md',
-    backdrop: true,
-    ignoreBackdropClick: true,
-    keyboard: true,
-    initialState: { produtoSelecionado: item }
-  });
-}
-
+  abrirDetalhe(item: VendaAgregada): void {
+    this.modalService.show(DetalheComponent, {
+      class: 'modal-dialog-centered modal-md',
+      backdrop: true,
+      ignoreBackdropClick: true,
+      keyboard: true,
+      initialState: { produtoSelecionado: item }
+    });
+  }
 
   exportarAgregadosCSV(): void {
     const linhas = [
@@ -119,7 +125,10 @@ abrirDetalhe(item: VendaAgregada): void {
       )
     ];
 
-    const blob = new Blob([linhas.join('\n')], { type: 'text/csv;charset=utf-8;' });
+    const blob = new Blob([linhas.join('\n')], {
+      type: 'text/csv;charset=utf-8;'
+    });
+
     const url = window.URL.createObjectURL(blob);
 
     const a = document.createElement('a');
@@ -142,4 +151,7 @@ abrirDetalhe(item: VendaAgregada): void {
     };
   }
 
+  limparAvisos(): void {
+    this.parseErrors = [];
+  }
 }

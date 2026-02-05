@@ -1,7 +1,12 @@
 <div class="page">
 
   <!-- Upload -->
-  <app-upload #uploadCmp (csvLoaded)="onCsvLoaded($event)"></app-upload>
+  <app-upload
+  #uploadCmp
+  (csvLoaded)="onCsvLoaded($event)"
+  (clearWarnings)="limparAvisos()"
+></app-upload>
+
 
   <div class="header card">
     <div>
@@ -51,7 +56,7 @@
     <div class="filter-row">
       <div class="card">
         <i class="pi pi-search"></i>
-      <h4 class="section-title">Pesquisar:</h4>
+      <h4 class="section-title" style="padding-left: 5px;">Pesquisar:</h4>
       </div>
       </div>
      <div lass="filter-row" style="display: flex; gap: 1rem; width: 100%; align-items: center;">
@@ -86,7 +91,7 @@
       <p-table
         [value]="agregadasFiltradas"
         [paginator]="true"
-        [rows]="5"
+        [rows]="10"
         [alwaysShowPaginator]="true"
         [pageLinks]="3"
         [showJumpToPageDropdown]="false"

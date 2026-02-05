@@ -57,7 +57,7 @@
 
 /* Mesma altura para tabela e gráfico */
 .card-fixed {
-  height: 420px;
+  height: 650px;
   display: flex;
   flex-direction: column;
 }
@@ -238,4 +238,17 @@
 
 :host ::ng-deep .btn-action:active {
   transform: scale(0.95);
+}
+.chart-container {
+  flex: 1;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* trava o canvas dentro do card */
+:host ::ng-deep .chart-container canvas {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100%;
 }
