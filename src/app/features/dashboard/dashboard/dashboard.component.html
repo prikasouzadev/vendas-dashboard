@@ -4,7 +4,7 @@
   <app-upload
   #uploadCmp
   (csvLoaded)="onCsvLoaded($event)"
-  (clearWarnings)="resetDashboard()"
+  (clearWarnings)="limparAvisos()"
 ></app-upload>
 
 
@@ -54,7 +54,7 @@
   <!-- Filtro -->
   <div class="card">
     <div class="filter-row">
-      <div class="card">
+      <div >
         <i class="pi pi-search"></i>
       <h4 class="section-title" style="padding-left: 5px;">Pesquisar:</h4>
       </div>
