@@ -1,27 +1,204 @@
-# VendasDashboard
+# 📊 Dashboard de Vendas — Angular Challenge
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.11.
+Aplicação Angular que importa um arquivo CSV de vendas diretamente no navegador, processa os dados no client e exibe um dashboard interativo com agregações, gráfico e detalhes por produto.
 
-## Development server
+Projeto desenvolvido como desafio técnico com foco em:
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- parsing manual de CSV
+- manipulação de dados
+- arquitetura Angular
+- UX
+- testes unitários
 
-## Code scaffolding
+---
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## 🚀 Funcionalidades
 
-## Build
+### ✅ Importação de CSV
+- Upload via FileReader (API nativa do browser)
+- Validação de cabeçalho
+- Parsing manual com `split`
+- Tratamento de linhas inválidas
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### 📈 Dashboard
+- Tabela agregada por produto
+- Total geral
+- Produto mais vendido
+- Filtro por nome
+- Paginação
+- Exportação CSV agregado
 
-## Running unit tests
+### 📊 Visualização
+- Gráfico de barras (quantidade por produto)
+- Modal com detalhes do produto
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### ⚠ Tratamento de erros
+- Cabeçalho inválido
+- Dados inválidos
+- Arquivo com formato incorreto
+- Feedback visual ao usuário
 
-## Running end-to-end tests
+### 🧪 Testes unitários
+Cobertura de:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+- Parsing de CSV
+- Agregação de dados
+- Dashboard
+- Upload
+- Modal de detalhes
+- Pipe de moeda
 
-## Further help
+---
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## 🧰 Stack Técnica
+
+- Angular 13.x
+- PrimeNG (Table, Input, Chart)
+- ngx-bootstrap (Modal)
+- SCSS
+- Karma + Jasmine
+- APIs nativas do browser
+
+> ❌ Sem bibliotecas externas para parsing CSV  
+> ❌ Sem state management externo  
+
+---
+
+## 📂 Estrutura do Projeto
+
+```
+src/app
+│
+├── core
+│   ├── models
+│   └── services
+│
+├── features
+│   ├── dashboard
+│   ├── upload
+│   └── detalhe
+│
+├── shared
+│   ├── pipes
+│   └── components
+│
+└── app.component
+```
+
+---
+
+## ▶ Como rodar o projeto
+
+### 1️⃣ Instalar dependências
+
+```bash
+npm install
+```
+
+### 2️⃣ Executar aplicação
+
+```bash
+npx ng serve
+```
+
+Acesse no navegador:
+
+```
+http://localhost:4200
+```
+
+---
+
+## 🧪 Executar testes
+
+```bash
+npx ng test
+```
+
+Para rodar uma única vez:
+
+```bash
+npx ng test --watch=false
+```
+
+---
+
+## 📄 Formato esperado do CSV
+
+```csv
+produto,quantidade,preco_unitario
+Camiseta,3,49.90
+Calça,2,99.90
+Tênis,1,199.90
+```
+
+---
+
+## 🧠 Decisões Técnicas
+
+### Parsing manual
+- Validação linha a linha
+- Coleta de erros sem interromper processamento
+
+### Agregação eficiente
+- Uso de Map para performance
+- Ordenação por volume vendido
+
+### Arquitetura
+- Separação clara de responsabilidades
+- Componentes reutilizáveis
+
+### UX
+- Feedback visual claro
+- Paginação
+- Modal informativo
+
+---
+
+## ✨ Funcionalidades Extras
+
+- Persistência do último CSV (localStorage)
+- Exportação de relatório agregado
+- Paginação customizada
+- UI responsiva
+- Feedback visual detalhado
+
+---
+
+## 🔍 Cenários tratados
+
+✔ CSV válido  
+✔ Cabeçalho inválido  
+✔ Dados parcialmente inválidos  
+✔ Arquivo não CSV  
+✔ Nenhuma linha válida  
+
+---
+
+## 📌 Possíveis melhorias futuras
+
+- Drag & drop para upload
+- Filtros avançados
+- Exportação XLSX
+- Gráficos interativos
+- i18n
+
+---
+
+## 👩‍💻 Autor
+
+**Priscila Souza**
+
+---
+
+## ⭐ Observação
+
+Projeto desenvolvido com foco em:
+
+- qualidade de código
+- robustez
+- experiência do usuário
+- testes automatizados
+- boas práticas Angular
+
+---
