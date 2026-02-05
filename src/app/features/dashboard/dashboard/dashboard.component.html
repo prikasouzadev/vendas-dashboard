@@ -4,7 +4,7 @@
   <app-upload
   #uploadCmp
   (csvLoaded)="onCsvLoaded($event)"
-  (clearWarnings)="limparAvisos()"
+  (clearWarnings)="resetDashboard()"
 ></app-upload>
 
 
@@ -59,7 +59,7 @@
       <h4 class="section-title" style="padding-left: 5px;">Pesquisar:</h4>
       </div>
       </div>
-     <div lass="filter-row" style="display: flex; gap: 1rem; width: 100%; align-items: center;">
+     <div class="filter-row" style="display: flex; gap: 1rem; width: 100%; align-items: center;">
        <span class="p-input-icon-left w-100">
 
         <input
@@ -138,23 +138,6 @@
 </ng-template>
 
 
-        <ng-template pTemplate="body" let-item>
-          <tr>
-            <td class="cell-product">{{ item.produto }}</td>
-            <td>{{ item.quantidadeTotal }}</td>
-            <td>{{ item.valorTotal | currencyBr }}</td>
-            <td class="col-actions">
-              <button
-                pButton
-                type="button"
-                icon="pi pi-search"
-                class="btn-action"
-                aria-label="Ver detalhes"
-                (click)="abrirDetalhe(item)"
-              ></button>
-            </td>
-          </tr>
-        </ng-template>
 
         <ng-template pTemplate="emptymessage">
           <tr>

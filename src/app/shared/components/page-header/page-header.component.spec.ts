@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { PageHeaderComponent } from './page-header.component';
 
 describe('PageHeaderComponent', () => {
@@ -8,9 +7,8 @@ describe('PageHeaderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PageHeaderComponent ]
-    })
-    .compileComponents();
+      declarations: [PageHeaderComponent]
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -19,7 +17,11 @@ describe('PageHeaderComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('deve criar o componente', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('ngOnInit não deve lançar erro', () => {
+    expect(() => component.ngOnInit()).not.toThrow();
   });
 });
