@@ -1,0 +1,29 @@
+<div class="card">
+  <h3 class="section-title">Importar arquivo CSV</h3>
+
+  <div class="upload-field upload-card">
+    <label for="csvUpload" class="upload-label">
+      Arquivo de vendas
+    </label>
+
+    <input
+      id="csvUpload"
+      type="file"
+      accept=".csv"
+      (change)="onFileSelected($event)"
+      aria-label="Upload de arquivo CSV"
+      class="upload-input"
+    />
+  </div>
+
+  <div class="messages" aria-live="polite">
+    <p
+      *ngIf="messageText"
+      class="msg"
+      [ngClass]="'msg--' + messageType"
+      role="status"
+    >
+      {{ messageText }}
+    </p>
+  </div>
+</div>

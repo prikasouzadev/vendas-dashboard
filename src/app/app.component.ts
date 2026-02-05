@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import { Component , TemplateRef} from '@angular/core';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { VendasService } from './core/services/vendas.service';
+import { VendaAgregada } from './core/models/venda.model';
+
 
 @Component({
   selector: 'app-root',
@@ -6,5 +10,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'vendas-dashboard';
+
+  constructor(private vendasService: VendasService) {}
+
 }

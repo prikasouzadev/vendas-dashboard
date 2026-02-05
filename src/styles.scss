@@ -1,1 +1,190 @@
-/* You can add global styles to this file, and also import other style files */
+$primary-green: #008542;
+$accent-yellow: #FFD100;
+$light-gray: #f4f4f4;
+$dark-text: #333333;
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background: $light-gray;
+  color: $dark-text;
+  margin: 0;
+}
+
+/* ---------- SHELL LAYOUT ---------- */
+.app-shell {
+  display: flex;
+  min-height: 100vh;
+  padding: 18px;
+  box-sizing: border-box;
+}
+
+.sidebar {
+  width: 72px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 14px 10px;
+}
+
+.sidebar-top {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.brand-badge {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: #f3f5f7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.brand-logo {
+  width: 30px;
+  height: 30px;
+  object-fit: cover;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.nav-item {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  border: 1px solid #eef1f4;
+  background: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6b7280;
+}
+
+.nav-item i {
+  font-size: 16px;
+}
+
+.nav-item.active {
+  background: #0f172a;
+  border-color: #0f172a;
+  color: #fff;
+}
+
+.nav-item:hover {
+  filter: brightness(0.98);
+}
+
+.sidebar-bottom {
+  margin-top: auto;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #e5e7eb, #cbd5e1);
+  border: 2px solid #fff;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+}
+
+/* ---------- MAIN ---------- */
+.main {
+  flex: 1;
+  margin-left: 18px;
+  display: flex;
+  flex-direction: column;
+}
+
+.topbar {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  padding: 16px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.crumb {
+  font-size: 12px;
+  color: #6b7280;
+  margin-bottom: 2px;
+}
+
+.page-title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  color: $dark-text;
+}
+
+.search {
+  width: 260px;
+}
+
+.content {
+  margin-top: 18px;
+}
+
+/* ---------- CARDS (mesmo estilo do template) ---------- */
+.card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  border: 1px solid #f1f3f5;
+  margin-bottom: 10px;
+}
+
+/* ---------- TITLES com traço amarelo ---------- */
+.section-title {
+  position: relative;
+  display: inline-block;
+  margin: 0 0 12px 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: $dark-text;
+  padding-bottom: 10px;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 26px;
+  height: 3px;
+  background: $accent-yellow;
+  border-radius: 2px;
+}
+
+/* ---------- BOTÕES VERDES (PrimeNG) ---------- */
+.btn-primary-green.p-button {
+  background: $primary-green;
+  border-color: $primary-green;
+  color: #fff;
+}
+
+.btn-primary-green.p-button:hover {
+  filter: brightness(0.95);
+}

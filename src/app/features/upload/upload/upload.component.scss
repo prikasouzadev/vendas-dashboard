@@ -1,0 +1,41 @@
+.upload-card{
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+}
+
+.messages {
+  margin-top: 12px;
+}
+
+.msg {
+  display: inline-block;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid;
+  font-size: 13px;
+  line-height: 1.2;
+  background: transparent;
+  margin-top: 12px;
+  font-weight: 600;
+}
+.upload-message {
+  margin-top: 12px;
+  font-weight: 600;
+}
+
+// .upload-message.success {
+//   color: #008542; // verde
+// }
+
+// .upload-message.warning {
+//   color: #FFD100; // amarelo
+// }
+
+// .upload-message.error {
+//   color: #d32f2f; // vermelho
+// }
+
+.msg--success { color: #008542; }
+.msg--warn { color: #b38600; }   // amarelo mais legível que #FFD100 em texto
+.msg--error { color: #d32f2f; }
