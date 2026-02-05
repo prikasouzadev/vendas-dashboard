@@ -3,6 +3,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { VendaAgregada } from 'src/app/core/models/venda.model';
 import { VendasService } from 'src/app/core/services/vendas.service';
 import { UploadComponent } from '../../upload/upload/upload.component';
+import { DetalheComponent } from '../../detalhe/detalhe.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -99,10 +100,16 @@ export class DashboardComponent implements OnInit {
     this.aplicarFiltro();
   }
 
-  abrirDetalhe(template: TemplateRef<any>, item: VendaAgregada): void {
-    this.produtoSelecionado = item;
-    this.modalRef = this.modalService.show(template, { class: 'modal-md' });
-  }
+abrirDetalhe(item: VendaAgregada): void {
+  this.modalService.show(DetalheComponent, {
+    class: 'modal-dialog-centered modal-md',
+    backdrop: true,
+    ignoreBackdropClick: true,
+    keyboard: true,
+    initialState: { produtoSelecionado: item }
+  });
+}
+
 
   exportarAgregadosCSV(): void {
     const linhas = [
@@ -134,4 +141,5 @@ export class DashboardComponent implements OnInit {
       ]
     };
   }
+
 }

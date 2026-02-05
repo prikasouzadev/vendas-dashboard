@@ -1,71 +1,3 @@
-// $page-bg: #f4f4f4;
-// $primary-green: #008542;
-// $accent-yellow: #FFD100;
-// $dark-text: #333333;
-
-// .page {
-//   padding: 24px;
-//   background: $page-bg;
-//   min-height: 100vh;
-// }
-
-// .card {
-//   background: #fff;
-//   border-radius: 10px;
-//   padding: 16px;
-//   margin-bottom: 16px;
-// }
-
-// .header {
-//   display: flex;
-//   align-items: center;
-//   justify-content: space-between;
-
-//   h2 {
-//     margin: 0;
-//     color: $dark-text;
-//   }
-
-//   .subtitle {
-//     margin: 6px 0 0 0;
-//     opacity: 0.75;
-//   }
-// }
-
-// .actions button {
-//   background: $primary-green;
-//   border: none;
-// }
-
-// .grid {
-//   display: grid;
-//   grid-template-columns: repeat(2, minmax(240px, 1fr));
-//   gap: 16px;
-// }
-
-// .big {
-//   font-size: 22px;
-//   font-weight: 700;
-//   margin-top: 8px;
-// }
-
-// .muted {
-//   margin-top: 6px;
-//   opacity: 0.7;
-// }
-
-// .filter-row {
-//   display: flex;
-//   gap: 12px;
-//   align-items: center;
-// }
-
-// .w-100 {
-//   width: 100%;
-// }
-
-
-
 .page {
   background: transparent;
   padding: 0;
@@ -107,4 +39,203 @@
 
 .w-100 {
   width: 100%;
+}
+
+/* Tabela + Chart lado a lado */
+.table-chart-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: 16px;
+  align-items: start;
+}
+
+@media (max-width: 1100px) {
+  .table-chart-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Mesma altura para tabela e gráfico */
+.card-fixed {
+  height: 420px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ========= PrimeNG Table ========= */
+:host ::ng-deep .custom-table {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ajuda a respeitar larguras das colunas e evitar espaçamento “solto” */
+:host ::ng-deep .custom-table table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+/* Header/thead */
+:host ::ng-deep .custom-table .p-datatable-header {
+  background: transparent;
+  border: 0;
+}
+
+:host ::ng-deep .custom-table .p-datatable-thead > tr > th {
+  background: #fff;
+  color: #6b7280;
+  font-weight: 700;
+  font-size: 12px;
+  border-color: #eef1f4;
+  padding: 10px 12px; /* padding único (sem duplicação) */
+  vertical-align: middle;
+}
+
+/* Body */
+:host ::ng-deep .custom-table .p-datatable-tbody > tr > td {
+  border-color: #eef1f4;
+  padding: 10px 12px; /* padding único (sem duplicação) */
+  font-size: 13px;
+  color: #111827;
+  vertical-align: middle;
+}
+
+:host ::ng-deep .custom-table .p-datatable-tbody > tr:hover {
+  background: #f8fafc;
+}
+
+.cell-product {
+  font-weight: 600;
+}
+
+/* Alinhamentos */
+.text-center {
+  text-align: center;
+}
+.text-right {
+  text-align: right;
+}
+
+/* Larguras e alinhamento por coluna */
+.col-produto { width: 45%; }
+.col-qtd     { width: 15%; }
+.col-valor   { width: 30%; }
+.col-actions { width: 10%; text-align: right; }
+
+/* alinhar números melhor */
+:host ::ng-deep .custom-table .p-datatable-tbody > tr > td.col-qtd,
+:host ::ng-deep .custom-table .p-datatable-tbody > tr > td.col-valor {
+  font-variant-numeric: tabular-nums;
+}
+
+.empty-message {
+  text-align: center;
+  color: #6b7280;
+  padding: 18px;
+}
+
+/* Wrapper */
+:host ::ng-deep .custom-table .p-datatable-wrapper {
+  flex: 1;
+}
+
+/* ========= PrimeNG Paginator ========= */
+:host ::ng-deep .custom-table .p-paginator {
+  margin-top: auto;
+  border: none;
+  padding: 10px 0 0 0;
+  background: transparent;
+}
+
+:host ::ng-deep .custom-table .p-paginator .p-paginator-pages {
+  display: flex;
+  gap: 8px;
+}
+
+:host ::ng-deep .custom-table .p-paginator .p-paginator-page {
+  min-width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  border: 1px solid #eef1f4;
+  color: #111827;
+}
+
+:host ::ng-deep .custom-table .p-paginator .p-paginator-page.p-highlight {
+  background: #0f172a;
+  border-color: #0f172a;
+  color: #fff;
+}
+
+/* Prev/Next com setas sempre visíveis */
+:host ::ng-deep .custom-table .p-paginator-prev,
+:host ::ng-deep .custom-table .p-paginator-next {
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  border: 1px solid #d1d5db;
+  background: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+:host ::ng-deep .custom-table .p-paginator-prev .p-paginator-icon,
+:host ::ng-deep .custom-table .p-paginator-next .p-paginator-icon {
+  display: none !important;
+}
+
+:host ::ng-deep .custom-table .p-paginator-prev::before {
+  content: '‹';
+  font-size: 22px;
+  font-weight: 700;
+  color: #111827;
+  line-height: 1;
+}
+
+:host ::ng-deep .custom-table .p-paginator-next::before {
+  content: '›';
+  font-size: 22px;
+  font-weight: 700;
+  color: #111827;
+  line-height: 1;
+}
+
+:host ::ng-deep .custom-table .p-paginator-prev:hover,
+:host ::ng-deep .custom-table .p-paginator-next:hover {
+  background: #f3f4f6;
+}
+
+/* ========= Chart ========= */
+:host ::ng-deep .card-fixed .p-chart {
+  width: 100%;
+  height: 300px;
+}
+
+:host ::ng-deep .card-fixed .p-chart canvas {
+  max-width: 100% !important;
+}
+
+/* Botão de ação da tabela */
+:host ::ng-deep .btn-action {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+  color: #374151;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+:host ::ng-deep .btn-action:hover {
+  background: #16a34a;
+  border-color: #16a34a;
+  color: #fff;
+}
+
+:host ::ng-deep .btn-action:active {
+  transform: scale(0.95);
 }

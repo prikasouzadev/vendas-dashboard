@@ -10,12 +10,14 @@ import { CurrencyBrPipe } from 'src/app/shared/pipes/currency-br.pipe';
 import { UploadComponent } from '../../upload/upload/upload.component';
 import { FormsModule } from '@angular/forms';
 import { UploadModule } from '../../upload/upload/upload.module';
+import { DetalheComponent } from '../../detalhe/detalhe.component';
 
 
 @NgModule({
   declarations: [
     DashboardComponent,
     CurrencyBrPipe,
+    DetalheComponent
   ],
   imports: [
     CommonModule,
@@ -28,7 +30,7 @@ import { UploadModule } from '../../upload/upload/upload.module';
 
     ModalModule.forChild(),
 
-    UploadModule
+    UploadModule,
   ],
   exports: [DashboardComponent]
 })

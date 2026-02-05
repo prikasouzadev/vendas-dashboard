@@ -1,6 +1,6 @@
 <div class="page">
 
-   <!-- Upload -->
+  <!-- Upload -->
   <app-upload #uploadCmp (csvLoaded)="onCsvLoaded($event)"></app-upload>
 
   <div class="header card">
@@ -10,15 +10,19 @@
     </div>
 
     <div class="actions">
-      <button pButton type="button" label="Exportar CSV" icon="pi pi-download"
-      class="btn-primary-green "
-              (click)="exportarAgregadosCSV()"
-              [disabled]="!agregadas.length"></button>
+      <button
+        pButton
+        type="button"
+        label="Exportar CSV"
+        icon="pi pi-download"
+        class="btn-primary-green"
+        (click)="exportarAgregadosCSV()"
+        [disabled]="!agregadas.length"
+      ></button>
     </div>
   </div>
 
-
-  <!-- Erros de parsing -->
+  <!-- Avisos -->
   <div class="card" *ngIf="parseErrors.length">
     <h4>Avisos</h4>
     <ul>
@@ -35,9 +39,7 @@
 
     <div class="card">
       <h4 class="section-title">Produto mais vendido</h4>
-      <div class="big">
-        {{ maisVendido?.produto || '-' }}
-      </div>
+      <div class="big">{{ maisVendido?.produto || '-' }}</div>
       <div class="muted" *ngIf="maisVendido">
         Quantidade: {{ maisVendido.quantidadeTotal }}
       </div>
@@ -47,8 +49,14 @@
   <!-- Filtro -->
   <div class="card">
     <div class="filter-row">
-      <span class="p-input-icon-left w-100">
+      <div class="card">
         <i class="pi pi-search"></i>
+      <h4 class="section-title">Pesquisar:</h4>
+      </div>
+      </div>
+     <div lass="filter-row" style="display: flex; gap: 1rem; width: 100%; align-items: center;">
+       <span class="p-input-icon-left w-100">
+
         <input
           pInputText
           type="text"
@@ -60,77 +68,108 @@
         />
       </span>
 
-      <button pButton type="button" label="Limpar" class="btn-primary-green"
-              (click)="limparFiltro()"></button>
-    </div>
+      <button
+        pButton
+        type="button"
+        label="Limpar"
+        class="btn-primary-green"
+        (click)="limparFiltro()"
+      ></button>
+     </div>
+
   </div>
 
-  <!-- Tabela -->
-  <div class="card" *ngIf="agregadasFiltradas.length; else emptyState">
-    <p-table
-      [value]="agregadasFiltradas"
-      [paginator]="true"
-      [rows]="5"
-      [rowsPerPageOptions]="[5,10,20]"
-      sortMode="multiple"
-      dataKey="produto">
+  <div class="table-chart-grid">
 
-      <ng-template pTemplate="header">
-        <tr>
-          <th pSortableColumn="produto">
-            Produto <p-sortIcon field="produto"></p-sortIcon>
-          </th>
-          <th pSortableColumn="quantidadeTotal">
-            Quantidade <p-sortIcon field="quantidadeTotal"></p-sortIcon>
-          </th>
-          <th pSortableColumn="valorTotal">
-            Valor Total <p-sortIcon field="valorTotal"></p-sortIcon>
-          </th>
-          <th>Ações</th>
-        </tr>
-      </ng-template>
+    <!-- Tabela -->
+    <div class="card card-fixed" *ngIf="agregadasFiltradas.length; else emptyState">
+      <p-table
+        [value]="agregadasFiltradas"
+        [paginator]="true"
+        [rows]="5"
+        [alwaysShowPaginator]="true"
+        [pageLinks]="3"
+        [showJumpToPageDropdown]="false"
+        [showFirstLastIcon]="false"
+        sortMode="multiple"
+        dataKey="produto"
+        responsiveLayout="scroll"
+        styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines custom-table"
+      >
+        <ng-template pTemplate="header">
+  <tr>
+    <th pSortableColumn="produto" class="col-produto">
+      Produto <p-sortIcon field="produto"></p-sortIcon>
+    </th>
 
-      <ng-template pTemplate="body" let-item>
-        <tr>
-          <td>{{ item.produto }}</td>
-          <td>{{ item.quantidadeTotal }}</td>
-          <td>{{ item.valorTotal | currencyBr }}</td>
-          <td>
-            <button pButton type="button" icon="pi pi-eye" class="p-button-text"
-                    aria-label="Ver detalhes"
-                    (click)="abrirDetalhe(detalheTpl, item)"></button> 
-          </td>
-        </tr>
-      </ng-template>
-    </p-table>
+    <th pSortableColumn="quantidadeTotal" class="col-qtd text-center">
+      Quantidade <p-sortIcon field="quantidadeTotal"></p-sortIcon>
+    </th>
+
+    <th pSortableColumn="valorTotal" class="col-valor text-right">
+      Valor Total <p-sortIcon field="valorTotal"></p-sortIcon>
+    </th>
+
+    <th class="col-actions text-right">Ações</th>
+  </tr>
+</ng-template>
+
+<ng-template pTemplate="body" let-item>
+  <tr>
+    <td class="col-produto cell-product">{{ item.produto }}</td>
+    <td class="col-qtd text-center">{{ item.quantidadeTotal }}</td>
+    <td class="col-valor text-right">{{ item.valorTotal | currencyBr }}</td>
+    <td class="col-actions text-right">
+      <button
+        pButton
+        type="button"
+        icon="pi pi-search"
+        class="btn-action"
+        aria-label="Ver detalhes"
+        (click)="abrirDetalhe(item)"
+      ></button>
+    </td>
+  </tr>
+</ng-template>
+
+
+        <ng-template pTemplate="body" let-item>
+          <tr>
+            <td class="cell-product">{{ item.produto }}</td>
+            <td>{{ item.quantidadeTotal }}</td>
+            <td>{{ item.valorTotal | currencyBr }}</td>
+            <td class="col-actions">
+              <button
+                pButton
+                type="button"
+                icon="pi pi-search"
+                class="btn-action"
+                aria-label="Ver detalhes"
+                (click)="abrirDetalhe(item)"
+              ></button>
+            </td>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="4" class="empty-message">Nenhum resultado encontrado.</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+
+    <ng-template #emptyState>
+      <div class="card card-fixed">
+        Nenhum dado para exibir. Importe um CSV válido.
+      </div>
+    </ng-template>
+
+    <!-- Chart -->
+    <div class="card card-fixed" *ngIf="chartData">
+      <h4 class="section-title">Quantidades por produto</h4>
+      <p-chart type="bar" [data]="chartData"></p-chart>
+    </div>
+
   </div>
-
-  <ng-template #emptyState>
-    <div class="card">
-      Nenhum dado para exibir. Importe um CSV válido.
-    </div>
-  </ng-template>
-
-  <!-- Chart -->
-  <div class="card" *ngIf="chartData">
-    <h4 class="section-title">Quantidades por produto</h4>
-    <p-chart type="bar" [data]="chartData"></p-chart>
-  </div>
-
-  <!-- Modal -->
-  <ng-template #detalheTpl>
-    <div class="modal-header">
-      <h4 class="modal-title">Detalhes do Produto</h4>
-      <button type="button" class="close" aria-label="Close" (click)="modalRef?.hide()">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-
-    <div class="modal-body" *ngIf="produtoSelecionado">
-      <p><strong>Produto:</strong> {{ produtoSelecionado.produto }}</p>
-      <p><strong>Quantidade:</strong> {{ produtoSelecionado.quantidadeTotal }}</p>
-      <p><strong>Valor Total:</strong> {{ produtoSelecionado.valorTotal | currencyBr }}</p>
-    </div>
-  </ng-template>
-
 </div>

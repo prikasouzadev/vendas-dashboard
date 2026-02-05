@@ -1,0 +1,32 @@
+<div class="modal-header modal-head color-fundo">
+  <div>
+    <h4 class="modal-title">Detalhes do Produto</h4>
+    <small class="subtitle">Resumo agregado do item selecionado</small>
+  </div>
+
+</div>
+
+<div class="modal-body modal-body-custom color-fundo" *ngIf="produtoSelecionado">
+  <div class="info-grid">
+    <div class="info-item">
+      <div class="label">Produto</div>
+      <div class="value">{{ produtoSelecionado.produto }}</div>
+    </div>
+
+    <div class="info-item">
+      <div class="label">Quantidade</div>
+      <div class="value">{{ produtoSelecionado.quantidadeTotal }}</div>
+    </div>
+
+    <div class="info-item">
+      <div class="label">Valor Total</div>
+      <div class="value">{{ produtoSelecionado.valorTotal | currencyBr }}</div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-footer modal-foot color-fundo">
+  <button type="button" class="btn btn-outline-secondary" (click)="fechar()">
+    Fechar
+  </button>
+</div>

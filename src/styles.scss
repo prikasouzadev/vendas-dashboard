@@ -1,3 +1,5 @@
+@import "primeicons/primeicons.css";
+
 $primary-green: #008542;
 $accent-yellow: #FFD100;
 $light-gray: #f4f4f4;
@@ -20,6 +22,7 @@ body {
   min-height: 100vh;
   padding: 18px;
   box-sizing: border-box;
+  transform: translateZ(0);
 }
 
 .sidebar {
@@ -138,10 +141,6 @@ body {
   color: $dark-text;
 }
 
-.search {
-  width: 260px;
-}
-
 .content {
   margin-top: 18px;
 }
@@ -183,8 +182,42 @@ body {
   background: $primary-green;
   border-color: $primary-green;
   color: #fff;
+  border-radius: 4px;
+  width: auto;
+  padding: 8px 16px;
 }
 
 .btn-primary-green.p-button:hover {
   filter: brightness(0.95);
+}
+
+modal-container.modal {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 1055 !important;
+
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+modal-container .modal-backdrop {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 1050 !important;
+}
+
+
+bs-modal-backdrop {
+  position: fixed !important;
+  inset: 0 !important;
+
+  background: rgba(0, 0, 0, 0.55) !important;
+  z-index: 1050 !important;
+}
+
+
+/* garante que apareça por cima */
+.modal-backdrop.show {
+  opacity: 0.55 !important;
 }

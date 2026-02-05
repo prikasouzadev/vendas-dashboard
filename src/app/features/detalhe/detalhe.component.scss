@@ -1,0 +1,52 @@
+.modal-head {
+  border-bottom: 1px solid #eef1f4;
+  padding: 16px 18px;
+}
+
+.modal-title {
+  font-weight: 800;
+  margin: 0;
+}
+
+.subtitle {
+  color: #6b7280;
+}
+
+.modal-body-custom {
+  padding: 18px;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.info-item {
+  background: #f8fafc;
+  border: 1px solid #eef1f4;
+  border-radius: 12px;
+  padding: 12px 14px;
+}
+
+.label {
+  font-size: 12px;
+  color: #6b7280;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.value {
+  font-size: 16px;
+  font-weight: 800;
+  color: #111827;
+}
+
+.modal-foot {
+  border-top: 1px solid #eef1f4;
+  padding: 14px 18px;
+}
+
+.color-fundo{
+  background-color: #b8b8bb;
+}
