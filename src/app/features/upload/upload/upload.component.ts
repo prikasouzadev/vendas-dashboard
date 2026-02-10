@@ -8,8 +8,8 @@ type MessageType = 'success' | 'warn' | 'error';
   styleUrls: ['./upload.component.scss']
 })
 export class UploadComponent {
-  @Output() csvLoaded = new EventEmitter<string>();
-  @Output() clearWarnings = new EventEmitter<void>();
+  @Output() csvLoaded = new EventEmitter<string>(); //manda pro dashboard o conteúdo do CSV
+  @Output() clearWarnings = new EventEmitter<void>();// avisa o dashboard para limpar avisos antigos quando um novo arquivo é carregado
 
   messageText: string | null = null;
   messageType: MessageType = 'success';
@@ -68,7 +68,7 @@ export class UploadComponent {
     reader.readAsText(file);
   }
 
-  // ✅ o Dashboard pode chamar isso quando parseErrors > 0 (se você estiver usando ViewChild)
+  // ✅ o Dashboard pode chamar isso quando parseErrors > 0
   public showWarningForInvalidData(): void {
     this.setMessage(
       'warn',

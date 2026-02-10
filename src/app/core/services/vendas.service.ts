@@ -6,7 +6,7 @@ export class VendasService {
   private readonly expectedHeader = 'produto,quantidade,preco_unitario';
 
   validateHeader(csv: string): boolean {
-    const firstLine = (csv.split('\n')[0] || '').trim();
+    const firstLine = (csv.split('\n')[0] || '').trim(); //
     return firstLine === this.expectedHeader;
   }
 
